@@ -1,0 +1,39 @@
+---
+title: "BIOST505DataGen"
+author: "Max Bi"
+date: "2024-02-19"
+output: 
+  pdf_document:
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rigr)
+library(tidyverse)
+```
+
+```{r}
+set.seed(505)
+png("ex1.png", width=500, height=200, units="mm", res=300, pointsize = 14)
+par(mfrow = c(1, 2))
+
+n = 100
+x = runif(n, 0, 100)
+y_cloud = -1.5 * x + rnorm(n, 0, 100)
+plot(x, y_cloud, xlab = "x", ylab = "y", main = "Plot 1")
+
+y_lin = -1.5 * x + rnorm(n, 0, 5)
+plot(x, y_lin, xlab = "x", ylab = "y", main = "Plot 2")
+
+dev.off()
+```
+
+```{r}
+mod1 = lm(y_cloud ~ x)
+png("big_resid.png", width=500, height=200, units="mm", res=300, pointsize = 14)
+plot(x, y_lin, xlab = "x", ylab = "y", main = "Plot 2")
+abline(a = mean(y_cloud), b = 0, col = "blue")
+dev.off()
+```
+
